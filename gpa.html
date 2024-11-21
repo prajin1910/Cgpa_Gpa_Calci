@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPA Calculator - 3rd Semester</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #3a3a3a, #3a3a3a);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-top: 20px;
+  text-align: center;
+  color: #f8f8f8;
+}
+
+.author-info {
+  text-align: center;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.author-info a {
+  color: #00b0ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.author-info a:hover {
+  color: #008c99;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.social-icons a {
+  color: #00b0ff;
+  margin: 0 10px;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #008c99;
+}
+
+form {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 0 10px;
+}
+
+label {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 2px solid #00b0ff;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f1f1f1;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+select:focus {
+  border-color: #007bb5;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.gpa-btn {
+  background-color: #28a745;
+  color: white;
+  font-size: 1rem;
+}
+
+.gpa-btn:hover {
+  background-color: #218838;
+}
+
+.reset-btn {
+  background-color: #ff6f61;
+  color: white;
+  font-size: 1rem;
+}
+
+.reset-btn:hover {
+  background-color: #e65c54;
+}
+
+
+#result {
+  font-size: 2rem;
+  color: #00b0ff;
+  display: none; /* Initially hidden */
+  animation: fadeIn 0.5s ease-out;
+  text-align: center;
+  margin: 20px auto; /* Center horizontally */
+}
+
+
+#loading {
+  display: none;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#loading img {
+  width: 50px;
+  height: 50px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.back-link {
+  display: inline-block;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 1rem;
+  color: #00b0ff;
+  text-decoration: none;
+  padding: 4px 8px;
+  margin-left: 625px;
+  border: 2px solid #00b0ff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #00b0ff;
+  color: #fff;
+}
+
+footer {
+  background-color: #282828;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer .social-icons {
+  margin: 10px 0;
+}
+
+footer .social-icons a {
+  color: #00b0ff;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+footer .social-icons a:hover {
+  color: #008c99;
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .back-link {
+    display: inline-block; /* Ensure it only wraps around its content */
+    margin: 10px auto; /* Center it horizontally */
+    text-align: center;
+    font-size: 0.9rem; /* Slightly smaller font */
+    color: #00b0ff;
+    text-decoration: none;
+    padding: 4px 10px; /* Reduced padding for a smaller rectangle */
+    margin-left: 120px;
+    border: 2px solid #00b0ff;
+    border-radius: 5px; /* Slightly rounded corners */
+    transition: all 0.3s ease;
+  }
+
+  .author-info {
+    font-size: 0.9rem;
+  }
+
+  .social-icons a {
+    font-size: 1.2rem;
+  }
+
+  footer p {
+    font-size: 0.8rem;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div>
+    <h1>GPA Calculator - 3rd Semester</h1>
+    <div class="author-info">
+      Created by 
+      <a href="https://prajinkumar-portfolio.vercel.app/" target="_blank">Prajin Kumar P - CSE Department</a>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/prajin.official/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/prajinkumar19/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+
+    <a href="index.html" class="back-link">Back to CGPA Calculator👈🏻</a>
+
+    <form id="gpa-form">
+      <div class="semester">
+        <label for="subject-1">AD4351 Foundations of Data Science (Credits: 3):</label>
+        <select id="subject-1" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <!-- Other existing subjects -->
+      <div class="semester">
+        <label for="subject-2">CS4301 Data Structures & Algorithms I (Credits: 3):</label>
+        <select id="subject-2" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="semester">
+        <label for="subject-3">CS4351 Digital Logic and Computer Organization (Credits: 3):</label>
+        <select id="subject-3" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="semester">
+        <label for="subject-4">CS4352 Java Programming (Credits: 3):</label>
+        <select id="subject-4" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="semester">
+        <label for="subject-5">MA4351 Discrete Mathematics (Credits: 4):</label>
+        <select id="subject-5" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="semester">
+        <label for="subject-6">CS4306 Data Structures and Algorithms Laboratory (Credits: 2):</label>
+        <select id="subject-6" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="semester">
+        <label for="subject-7">CS4354 Java Programming Laboratory (Credits: 2):</label>
+        <select id="subject-7" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="semester">
+        <label for="subject-8">AD4358 Data Science Laboratory (Credits: 2):</label>
+        <select id="subject-8" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="semester">
+        <label for="subject-9">HS4301 Communication Skills (Credits: 2):</label>
+        <select id="subject-9" required>
+          <option value="" disabled selected>Select Grade</option>
+          <option value="10">O</option>
+          <option value="9">A+</option>
+          <option value="8">A</option>
+          <option value="7">B+</option>
+          <option value="6">B</option>
+          <option value="5">C+</option>
+          <option value="4">C</option>
+          <option value="0">U</option>
+        </select>
+      </div>
+
+      <div class="button-container">
+        <button type="submit" class="gpa-btn">Calculate GPA</button>
+        <button type="reset" class="reset-btn">Reset</button>
+      </div>
+    </form>
+
+    <div id="loading">
+      <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading...">
+    </div>
+
+    <div id="result"></div>
+  </div>
+  <footer>
+    <p>Created by Prajin Kumar P - CSE Department</p>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/prajin.official/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/prajinkumar19/" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </footer>
+  <script>
+    const form = document.getElementById("gpa-form");
+    const resultDiv = document.getElementById("result");
+    const loadingDiv = document.getElementById("loading");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      loadingDiv.style.display = "block"; // Show loading GIF
+
+      let totalCredits = 0;
+      let totalPoints = 0;
+
+      const credits = [3, 3, 3, 3, 4, 2, 2, 2, 2]; // Adjusted credits for each subject
+
+      for (let i = 1; i <= credits.length; i++) {
+        const select = document.getElementById(`subject-${i}`);
+        const grade = parseInt(select.value);
+        totalCredits += credits[i - 1];
+        totalPoints += grade * credits[i - 1];
+      }
+
+      const gpa = totalPoints / totalCredits;
+
+      setTimeout(function() {
+        resultDiv.textContent = `Your GPA is: ${gpa.toFixed(2)}`;
+        resultDiv.style.display = "block";
+        resultDiv.style.animation = "fadeIn 0.5s ease-out";
+        loadingDiv.style.display = "none"; // Hide loading GIF
+        resultDiv.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to result
+      }, 500); // Simulate a short delay for better UX
+    });
+  </script>
+</body>
+</html>
